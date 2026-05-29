@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VB Shop — ร้านเสื้อบอลครบวงจร</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Sarabun',sans-serif;background:#f5f4f0;color:#1a1a1a;min-height:100vh}
+:root{
+  --green:#1D9E75;--green-light:#E1F5EE;--green-dark:#085041;
+  --amber:#EF9F27;--amber-light:#FAEEDA;
+  --red:#E24B4A;--red-light:#FCEBEB;
+  --border:#e5e3dc;--bg:#fff;--bg2:#f5f4f0;--text:#1a1a1a;--text2:#6b6b68
+}
+
+/* Hero */
+.hero{background:var(--green-dark);color:white;padding:2rem 1.5rem 1.75rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50px;right:-50px;width:220px;height:220px;border:3px solid rgba(255,255,255,0.07);border-radius:50%}
+.hero::after{content:'';position:absolute;bottom:-70px;right:40px;width:160px;height:160px;border:3px solid rgba(255,255,255,0.04);border-radius:50%}
+.shop-title{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:4px;line-height:1}
+.shop-sub{font-size:14px;color:rgba(255,255,255,0.6);margin-top:6px;font-weight:300}
+.badge-row{display:flex;gap:8px;margin-top:1.25rem;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,0.88)}
+.badge i{vertical-align:-2px;margin-right:4px;font-size:14px}
+
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border-bottom:1px solid var(--border)}
+.stat{text-align:center;padding:1rem .5rem;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--green)}
+.stat-label{font-size:12px;color:var(--text2);margin-top:2px}
+
+/* Section */
+.section{padding:1.5rem}
+.section-title{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);margin-bottom:1rem}
+
+/* Filters */
+.filter-row{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
+.filter-btn{padding:7px 16px;border-radius:20px;border:1px solid var(--border);background:#fff;font-size:13px;cursor:pointer;color:var(--text2);font-family:'Sarabun',sans-serif;transition:all .15s}
+.filter-btn.active,.filter-btn:hover{background:var(--green);color:white;border-color:var(--green)}
+
+/* Products Grid */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.product-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .1s}
+.product-card:hover{border-color:var(--green);transform:translateY(-2px)}
+.product-img{height:150px;display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;background:#f8f7f3}
+.stock-badge{position:absolute;top:10px;right:10px;font-size:11px;padding:3px 9px;border-radius:10px;font-weight:500}
+.stock-ok{background:#E1F5EE;color:#085041}
+.stock-low{background:#FAEEDA;color:#633806}
+.stock-out{background:#FCEBEB;color:#791F1F}
+.product-info{padding:.875rem}
+.product-name{font-size:13px;font-weight:500;line-height:1.3}
+.product-team{font-size:12px;color:var(--text2);margin-top:3px}
+.product-price{font-size:16px;font-weight:600;color:var(--green);margin-top:.5rem}
+.product-stock{font-size:12px;color:var(--text2);margin-top:3px}
+
+/* Size Table */
+.size-section{padding:0 1.5rem 1.75rem}
+.size-table-wrap{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.size-table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+.size-table th{background:var(--green-dark);color:white;padding:11px 14px;font-weight:500;text-align:center;font-size:12px;letter-spacing:.5px}
+.size-table th:first-child{text-align:left}
+.size-table td{padding:10px 14px;text-align:center;border-bottom:1px solid var(--border);color:var(--text)}
+.size-table td:first-child{text-align:left;font-weight:500;color:var(--text2)}
+.size-table tr:last-child td{border-bottom:none}
+.size-table tr:nth-child(even) td{background:#f8f7f3}
+.size-note{font-size:12px;color:var(--text2);margin-top:.5rem;padding-left:4px}
+
+/* Contact */
+.contact-bar{background:var(--green);color:white;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:.875rem}
+.contact-bar i{font-size:22px}
+.contact-label{font-size:12px;opacity:.8;margin-bottom:2px}
+.contact-value{font-size:15px;font-weight:500}
+
+/* Footer */
+footer{background:var(--green-dark);color:rgba(255,255,255,0.5);text-align:center;padding:1rem;font-size:12px}
+
+/* Modal Overlay */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal-card{background:#fff;border-radius:16px;padding:1.5rem;width:100%;max-width:400px;max-height:90vh;overflow-y:auto}
+.modal-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem}
+.close-btn{background:none;border:none;cursor:pointer;font-size:22px;color:var(--text2);padding:0;line-height:1}
+.close-btn:hover{color:var(--text)}
+.modal-emoji{font-size:72px;text-align:center;display:block;margin:.75rem 0}
+.modal-name{font-size:19px;font-weight:500}
+.modal-team{font-size:13px;color:var(--text2);margin-top:3px}
+.modal-price{font-size:24px;font-weight:600;color:var(--green);margin:.5rem 0}
+.modal-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:1rem}
+.detail-item{background:#f8f7f3;border-radius:10px;padding:.75rem}
+.detail-item-label{font-size:11px;color:var(--text2);margin-bottom:3px}
+.detail-item-val{font-size:14px;font-weight:500}
+.size-label{margin-top:1rem;font-size:13px;color:var(--text2)}
+.size-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:.5rem}
+.size-chip{padding:5px 13px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:#f8f7f3}
+.order-btn{width:100%;margin-top:1.25rem;padding:.75rem;background:var(--green);color:white;border:none;border-radius:10px;font-size:15px;font-family:'Sarabun',sans-serif;cursor:pointer;font-weight:500;transition:background .15s}
+.order-btn:hover{background:var(--green-dark)}
+
+/* Responsive */
+@media(max-width:480px){
+  .shop-title{font-size:40px}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="shop-title">⚽ VB Shop</div>
+  <div class="shop-sub">ร้านเสื้อบอลครบวงจร — ของแท้ ราคาดี ส่งทั่วไทย</div>
+  <div class="badge-row">
+    <span class="badge"><i class="ti ti-shield-check"></i> ของแท้ 100%</span>
+    <span class="badge"><i class="ti ti-truck"></i> ส่งด่วน</span>
+    <span class="badge"><i class="ti ti-tag"></i> ราคาดีที่สุด</span>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-row">
+  <div class="stat"><div class="stat-num" id="stat-total">0</div><div class="stat-label">รายการสินค้า</div></div>
+  <div class="stat"><div class="stat-num">12</div><div class="stat-label">ทีมลีกดัง</div></div>
+  <div class="stat"><div class="stat-num" id="stat-stock">0</div><div class="stat-label">ตัวในสต็อค</div></div>
+</div>
+
+<!-- Products -->
+<div class="section">
+  <div class="section-title">สินค้าทั้งหมด</div>
+  <div class="filter-row">
+   <button class="filter-btn active" onclick="filterProducts('all',this)">ทั้งหมด</button>
+<button class="filter-btn" onclick="filterProducts('pl',this)">พรีเมียร์ลีก</button>
+<button class="filter-btn" onclick="filterProducts('laliga',this)">ลาลีกา</button>
+<button class="filter-btn" onclick="filterProducts('national',this)">ทีมชาติ</button>
+  </div>
+  <div class="products-grid" id="products-grid"></div>
+</div>
+
+<!-- Size Table -->
+<div class="size-section">
+  <div class="section-title">ตารางไซส์เสื้อ (ซม.)</div>
+  <div class="size-table-wrap">
+    <table class="size-table">
+      <thead>
+        <tr><th>ไซส์</th><th>รอบอก</th><th>ไหล่</th><th>ความยาว</th><th>แขน</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>S</td><td>88–92</td><td>41</td><td>66</td><td>18</td></tr>
+        <tr><td>M</td><td>93–97</td><td>43</td><td>68</td><td>19</td></tr>
+        <tr><td>L</td><td>98–103</td><td>45</td><td>70</td><td>20</td></tr>
+        <tr><td>XL</td><td>104–109</td><td>47</td><td>72</td><td>21</td></tr>
+        <tr><td>2XL</td><td>110–116</td><td>49</td><td>74</td><td>22</td></tr>
+        <tr><td>3XL</td><td>117–123</td><td>51</td><td>76</td><td>23</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="size-note">* วัดแบบแบน คูณ 2 เพื่อได้รอบอก &nbsp;•&nbsp; แนะนำวัดตัวก่อนสั่งซื้อ</p>
+</div>
+
+<!-- Contact -->
+<div class="contact-bar">
+  <i class="ti ti-brand-line"></i>
+  <div>
+    <div class="contact-label">LINE</div>
+    <div class="contact-value">@VBshop</div>
+  </div>
+</div>
+
+<div class="contact-bar" style="background:#1877f2">
+  <i class="ti ti-brand-facebook"></i>
+  <div>
+    <div class="contact-label">Facebook</div>
+    <div class="contact-value">พรเจริญ พรทวีโรจน์</div>
+  </div>
+</div>
+
+<div class="contact-bar" style="background:#ee4d2d">
+  <i class="ti ti-shopping-bag"></i>
+  <div>
+    <div class="contact-label">Shopee</div>
+    <div class="contact-value">https://s.shopee.co.th/2VovmDSAFK</div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>© 2025 Jersey Hub · ร้านเสื้อบอลครบวงจร</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-card">
+    <div class="modal-top">
+      <div>
+        <div class="modal-name" id="m-name"></div>
+        <div class="modal-team" id="m-team"></div>
+      </div>
+      <button class="close-btn" onclick="closeModal()"><i class="ti ti-x"></i></button>
+    </div>
+    <span class="modal-emoji" id="m-emoji"></span>
+    <div class="modal-price" id="m-price"></div>
+    <div class="modal-detail-grid">
+      <div class="detail-item"><div class="detail-item-label">สต็อคคงเหลือ</div><div class="detail-item-val" id="m-stock"></div></div>
+      <div class="detail-item"><div class="detail-item-label">ซีซั่น</div><div class="detail-item-val" id="m-season"></div></div>
+      <div class="detail-item"><div class="detail-item-label">แบบ</div><div class="detail-item-val" id="m-type"></div></div>
+      <div class="detail-item"><div class="detail-item-label">ลีก</div><div class="detail-item-val" id="m-league"></div></div>
+    </div>
+    <div class="size-label">ไซส์ที่มีในสต็อค</div>
+    <div class="size-chips" id="m-sizes"></div>
+    <button class="order-btn" id="m-order-btn">📲 สอบถาม / สั่งซื้อผ่าน LINE</button>
+  </div>
+</div>
+
+<script>
+const products = [
+  {id:1, name:'เสื้อเหย้า แมนยู 24/25',      team:'Manchester United',  emoji:'🔴', price:890,  stock:24, league:'pl',     season:'2024/25', type:'เหย้า', sizes:['S','M','L','XL','2XL']},
+  {id:2, name:'เสื้อเยือน แมนซิตี้ 24/25',   team:'Manchester City',    emoji:'🔵', price:890,  stock:18, league:'pl',     season:'2024/25', type:'เยือน', sizes:['M','L','XL']},
+  {id:3, name:'เสื้อเหย้า อาร์เซนอล 24/25',  team:'Arsenal',            emoji:'🔴', price:890,  stock:3,  league:'pl',     season:'2024/25', type:'เหย้า', sizes:['S','M','L']},
+  {id:4, name:'เสื้อเหย้า ลิเวอร์พูล 24/25', team:'Liverpool',          emoji:'❤️', price:950,  stock:30, league:'pl',     season:'2024/25', type:'เหย้า', sizes:['S','M','L','XL','2XL','3XL']},
+  {id:5, name:'เสื้อเหย้า เชลซี 24/25',      team:'Chelsea',            emoji:'💙', price:850,  stock:0,  league:'pl',     season:'2024/25', type:'เหย้า', sizes:[]},
+  {id:6, name:'เสื้อเหย้า บาร์เซโลนา 24/25', team:'FC Barcelona',       emoji:'🔵', price:950,  stock:22, league:'laliga', season:'2024/25', type:'เหย้า', sizes:['M','L','XL','2XL']},
+  {id:7, name:'เสื้อเหย้า เรอัลมาดริด 24/25',team:'Real Madrid',        emoji:'⬜', price:950,  stock:15, league:'laliga', season:'2024/25', type:'เหย้า', sizes:['S','M','L','XL']},
+  {id:8, name:'เสื้อทีมชาติไทย 2024',         team:'ทีมชาติไทย',         emoji:'🇹🇭', price:750,  stock:40, league:'national',   season:'2024',    type:'เหย้า', sizes:['S','M','L','XL','2XL','3XL']},
+  {id:9, name:'เสื้อบุรีรัมย์ 24/25',          team:'Buriram United',     emoji:'🟣', price:690,  stock:4,  league:'national',   season:'2024/25', type:'เหย้า', sizes:['M','L','XL']},
+  {id:10,name:'เสื้อเยือน บาร์เซโลนา 24/25', team:'FC Barcelona',       emoji:'🔴', price:950,  stock:8,  league:'laliga', season:'2024/25', type:'เยือน', sizes:['M','L','XL']},
+  {id:11,name:'เสื้อเหย้า ท็อตแนม 24/25',    team:'Tottenham Hotspur',  emoji:'⚪', price:850,  stock:12, league:'pl',     season:'2024/25', type:'เหย้า', sizes:['S','M','L','XL']},
+  {id:12,name:'เสื้อเชียงราย 24/25',           team:'Chiangrai United',   emoji:'🟢', price:650,  stock:2,  league:'national',   season:'2024/25', type:'เหย้า', sizes:['M','L']},
+];
+
+// Stats
+document.getElementById('stat-total').textContent = products.length;
+document.getElementById('stat-stock').textContent = products.reduce((a,p)=>a+p.stock,0);
+
+function stockBadge(s) {
+  if (s === 0) return {cls:'stock-out', txt:'หมดสต็อค'};
+  if (s <= 5)  return {cls:'stock-low', txt:'เหลือน้อย'};
+  return {cls:'stock-ok', txt:'มีสต็อค'};
+}
+
+function renderProducts(cat) {
+  const list = cat === 'all' ? products : products.filter(p => p.league === cat);
+  document.getElementById('products-grid').innerHTML = list.map(p => {
+    const b = stockBadge(p.stock);
+    return `<div class="product-card" onclick="openModal(${p.id})">
+      <div class="product-img">
+        ${p.emoji}
+        <span class="stock-badge ${b.cls}">${b.txt}</span>
+      </div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-team">${p.team}</div>
+        <div class="product-price">฿${p.price.toLocaleString()}</div>
+        <div class="product-stock">สต็อค: ${p.stock} ตัว</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterProducts(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(cat);
+}
+
+function openModal(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('m-name').textContent = p.name;
+  document.getElementById('m-team').textContent = p.team;
+  document.getElementById('m-emoji').textContent = p.emoji;
+  document.getElementById('m-price').textContent = '฿' + p.price.toLocaleString();
+  document.getElementById('m-stock').textContent = p.stock === 0 ? 'หมดสต็อค' : p.stock + ' ตัว';
+  document.getElementById('m-season').textContent = p.season;
+  document.getElementById('m-type').textContent = p.type;
+  const leagueMap = {pl:'พรีเมียร์ลีก', laliga:'ลาลีกา', thai:'ทีมไทย'};
+  document.getElementById('m-league').textContent = leagueMap[p.league] || p.league;
+  document.getElementById('m-sizes').innerHTML = p.sizes.length
+    ? p.sizes.map(s => `<span class="size-chip">${s}</span>`).join('')
+    : '<span style="color:#888;font-size:13px">ไม่มีไซส์ในสต็อค</span>';
+  const lineUrl = `https://line.me/R/ti/p/@jerseyHub`;
+  document.getElementById('m-order-btn').onclick = () => window.open(lineUrl, '_blank');
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+
+renderProducts('all');
+</script>
+</body>
+</html>
